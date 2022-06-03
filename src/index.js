@@ -38,6 +38,19 @@ export function loadPage() {
     if (largeScreen)
         menu()
 }
+export function screenResized() {
+    const smallScreen = (window.innerWidth < 599)
+    const navBar = document.getElementById("navigation-menu");
+    const content = document.getElementById('content');
+    if (smallScreen) {
+        navBar.classList.remove('open')
+        content.style.marginLeft = '0'
+    } else {
+        navBar.classList.add('open')
+        content.style.marginLeft = '250px'
+    }
+
+}
 window.addEventListener('DOMContentLoaded', () => { loadPage() })
-window.addEventListener('resize', () => { console.log('resized') });
+window.addEventListener('resize', () => { screenResized() });
 window.menu = menu;
