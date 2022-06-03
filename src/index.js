@@ -1,5 +1,6 @@
-var i = 1;
-function menu() {
+import css from './style.scss'
+var i = 1
+export function menu() {
     if (i == 0) {
         document.getElementById("navigation-menu").style.left = '0px';
         document.getElementById("mini-menu").style.left = '-30px';
@@ -17,3 +18,6 @@ function menu() {
         //    console.log("Expanding menu.");
     }
 }
+window.menu = menu;
+const body = document.querySelector('body');
+body.appendChild('div')
