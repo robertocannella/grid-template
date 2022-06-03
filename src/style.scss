@@ -1,71 +1,123 @@
-// The height of the fixed header bar
-$header-height: 1.5rem;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap');
 
-// The height of the margin below the header 
-// This is the location of the expand menu button
-$header-base-height: 1rem;
+$header-height: 3.5rem; // The height of the fixed header bar
+$header-base-height: 3rem; // The height of the margin below the header  (nav button)
+$header-bg-color: #333;
+$header-color: #f1f1f1;
 
+$body-color: #333;
+
+$nav-bg-color: #333;
+$nav-menu-width: 250px;
 // The height of the fixed footer bar
-$footer-height: 1rem;
+$footer-height: 2rem;
+$footer-bg-color: #333;
 
 
-* {
+html {
   box-sizing: border-box;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+
 body {
   margin: 0;
+  color: $body-color;
+  font-family: 'Roboto', sans-serif;
 }
 
 #grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   //grid-template-rows: $header-height $header-height auto;
-  background-color: aqua;
   position: relative;
 }
 
 #grid-container>div {
   position: relative;
-  background: #ddd;
-  border: dotted 1px blue;
 }
 
 #header {
+  display: flex;
+  align-items: baseline;
+  background-color: $header-bg-color;
+  color: $header-color;
+  padding-left: 1rem;
   height: $header-height;
   grid-column: 1/5;
   grid-row: 1;
 }
 
-#nav-button {
-  height: $header-base-height;
-  grid-column: 1;
-  grid-row: 2;
+.heading {
+  font-size: 2rem;
+  margin-left: 2rem;
+
+}
+
+#nav-button-container {
+  font-size: $header-base-height;
   cursor: pointer;
 }
 
 #empty-containerOne {
+  background-color: $header-bg-color;
   height: $header-base-height;
+  left: calc(-1 * ($nav-menu-width - $header-base-height));
   grid-column: 2/5;
   grid-row: 2;
 }
 
-#navigation-menu {
+.navigation-menu {
+  background-color: $nav-bg-color;
+  color: $header-color;
   position: absolute;
   grid-column: 1;
   grid-row: 3;
-  left: 0px;
-  width: 150px;
+  left: -$nav-menu-width;
+  width: $nav-menu-width;
   min-height: 150px;
   z-index: 1;
-  opacity: 90%;
+  opacity: .95;
   transition: 300ms;
   display: block;
-  height: calc(100vh - $footer-height - $header-height - $header-base-height);
+  min-height: calc(100vh - $footer-height - $header-height);
+
+
+
+  .navigation-menu__items {
+    display: block;
+    list-style: none;
+    font-size: 1.75rem;
+    padding: 0;
+  }
+
+  .navigation-menu__items>li:hover {
+    background-color: #444;
+  }
+
+  .navigation_menu__item {
+    padding: .25rem 1rem;
+    cursor: pointer;
+  }
+
+
+
+  overflow-y: auto;
+}
+
+.open {
+  left: 0px;
 }
 
 #mini-menu {
+  display: none;
   position: absolute;
+  background-color: $nav-bg-color;
   grid-column: 1;
   grid-row: 3;
   left: -30px;
@@ -74,19 +126,49 @@ body {
   z-index: 1;
   opacity: 90%;
   transition: 450ms;
-  height: calc(100vh - $footer-height - $header-height - $header-base-height);
+  height: calc(100% - $footer-height - $header-height);
 
 }
 
-#content {
+.content {
   grid-column: 1/5;
   grid-row: 3;
-  padding-left: 2Rem;
+  left: 0px;
+  transition: 450ms;
+
+  p {
+    padding: 1rem;
+  }
+
 }
 
 #footer {
+  display: flex;
+  align-items: center;
   height: $footer-height;
   grid-column: 1/5;
   grid-row: 4;
+  background-color: $footer-bg-color;
+  padding: 0 2rem;
 
+  .footer-content {
+    color: $header-color;
+
+  }
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (min-width: 599px) {
+  .navigation-menu {
+    .open {}
+  }
+}
+
+.card {
+  width: 100%;
+  height: 200px;
+  background-color: deeppink;
+  margin: 1rem 0;
+  overflow: hidden;
 }
