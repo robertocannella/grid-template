@@ -1,6 +1,7 @@
 import css from './style.scss'
 
-
+var windowWidth = window.innerWidth;
+var windowHeight = window.innerHeight;
 var i = 0
 export default function menu() {
     const sideNav = document.getElementById("navigation-menu");
@@ -34,22 +35,25 @@ export default function menu() {
     }
 }
 export function loadPage() {
-    const largeScreen = (window.innerWidth > 599)
+    const largeScreen = (window.innerWidth > 599 && windowHeight > 599)
     if (largeScreen)
         menu()
 }
 export function screenResized() {
-    const smallScreen = (window.innerWidth < 599)
-    const navBar = document.getElementById("navigation-menu");
-    const content = document.getElementById('content');
-    if (smallScreen) {
-        navBar.classList.remove('open')
-        content.style.marginLeft = '0'
-    } else {
-        navBar.classList.add('open')
-        content.style.marginLeft = '250px'
+    if (windowWidth !== window.innerWidth) {
+        // Update the window width for next time
+        windowWidth = window.innerWidth
+        const smallScreen = (window.innerWidth < 599 || window.innerHeight < 599)
+        const navBar = document.getElementById("navigation-menu");
+        const content = document.getElementById('content');
+        if (smallScreen) {
+            navBar.classList.remove('open')
+            content.style.marginLeft = '0'
+        } else {
+            navBar.classList.add('open')
+            content.style.marginLeft = '250px'
+        }
     }
-
 }
 window.addEventListener('DOMContentLoaded', () => { loadPage() })
 window.addEventListener('resize', () => { screenResized() });

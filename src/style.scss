@@ -43,6 +43,7 @@ body {
 }
 
 #header {
+  position: fixed;
   display: flex;
   align-items: baseline;
   background-color: $header-bg-color;
